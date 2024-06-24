@@ -15,9 +15,21 @@ cp /home/pi/vision_photo /usr/bin/vision_photo
 systemctl restart visionphoto
 ```
 
+--------------------------------------------------------------------------
+## Script check Pi
+```
+wget -O /usr/bin/check_pi.sh https://github.com/VinhLin/vision_app/raw/main/check_pi.sh
+chmod +x /usr/bin/check_pi.sh
+```
 
+### Startup file: `nano .bashrc`
+```
+# Startup
+/usr/bin/check_pi.sh
+```
 
-
-
-
-
+### Setup crontab
+```
+# setup run every hour
+0 * * * * /usr/bin/check_pi.sh
+```
