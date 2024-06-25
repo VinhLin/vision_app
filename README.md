@@ -17,19 +17,24 @@ systemctl restart visionphoto
 
 --------------------------------------------------------------------------
 ## Script check Pi
+1. Check size of vision app and backup
+2. Clear fash memory, if size > 90%
+3. Poweroff device if Pi cannot recevice data from MCU
+
+### Download
 ```
 wget -O /usr/bin/check_pi.sh https://github.com/VinhLin/vision_app/raw/main/check_pi.sh
 chmod +x /usr/bin/check_pi.sh
 ```
 
-### Startup file: `nano .bashrc`
-```
-# Startup
-/usr/bin/check_pi.sh
-```
-
 ### Setup crontab
+- Mở Crontab:
 ```
-# setup run every hour
-0 * * * * /usr/bin/check_pi.sh
+crontab -e
 ```
+- Thêm nội dung sau vào crontab:
+```
+# setup run every 5m
+*/5 * * * * /usr/bin/check_pi.sh
+```
+-----> **CHẠY THÀNH CÔNG TRÊN ORANGEPI ZERO**

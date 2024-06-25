@@ -118,9 +118,8 @@ echo "Serial Port GPS: $SERIAL_PORT_GPS"
 echo "Baud-rate: $BAUD_RATE"
 
 # Check if both variables are set
-if [[ -z "$SERIAL_PORT_GPS" || -z "$BAUD_RATE" ]]; then
-    echo "Error: Could not extract SERIAL_PORT_GPS or BAUD_RATE from $CONFIG_FILE."
-    exit 1
+if [[ -z "$BAUD_RATE" ]]; then
+    BAUD_RATE=115200;
 fi
 
 sudo systemctl stop visiongps
@@ -141,9 +140,11 @@ while [ $count -lt 5 ]; do
     ((count++))
 done
 
+# sudo systemctl restart visiongps
 # Check if all attempts resulted in empty data
 if [ $empty_count -eq 5 ]; then
     echo "No data received from $SERIAL_PORT_GPS. Poweroff the device..."
+    logger "Poweroff Device"
     sudo poweroff
 else
     echo "Data received successfully from $SERIAL_PORT_GPS."
