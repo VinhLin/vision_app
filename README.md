@@ -26,6 +26,12 @@ systemctl restart visionphoto
 wget -O /usr/bin/check_pi.sh https://github.com/VinhLin/vision_app/raw/main/check_pi.sh
 chmod +x /usr/bin/check_pi.sh
 ```
+- Download script `check_pi_2step.sh`:
+```
+wget -O /usr/bin/check_pi.sh https://github.com/VinhLin/vision_app/raw/main/check_pi_2step.sh
+chmod +x /usr/bin/check_pi.sh
+cat /usr/bin/check_pi.sh
+```
 
 ### Setup crontab
 - Mở Crontab:

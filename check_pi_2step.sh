@@ -111,43 +111,43 @@ fi
 
 #******************************** Step 3 *****************************
 # Serial port to check
-SERIAL_PORT_GPS=$(grep -oP '(?<=^  gps = ").*(?="$)' "$CONFIG_FILE")
-BAUD_RATE=$(grep -oP '(?<=^  baudrate = ).*' "$CONFIG_FILE")
+# SERIAL_PORT_GPS=$(grep -oP '(?<=^  gps = ").*(?="$)' "$CONFIG_FILE")
+# BAUD_RATE=$(grep -oP '(?<=^  baudrate = ).*' "$CONFIG_FILE")
 
-echo "Serial Port GPS: $SERIAL_PORT_GPS"
-echo "Baud-rate: $BAUD_RATE"
+# echo "Serial Port GPS: $SERIAL_PORT_GPS"
+# echo "Baud-rate: $BAUD_RATE"
 
-# Check if both variables are set
-if [[ -z "$BAUD_RATE" ]]; then
-    BAUD_RATE=115200;
-fi
+# # Check if both variables are set
+# if [[ -z "$BAUD_RATE" ]]; then
+#     BAUD_RATE=115200;
+# fi
 
-sudo systemctl stop visiongps
-# Configure the serial port
-sudo stty -F "$SERIAL_PORT_GPS" "$BAUD_RATE" -xcase -icanon min 0 time 5
+# sudo systemctl stop visiongps
+# # Configure the serial port
+# sudo stty -F "$SERIAL_PORT_GPS" "$BAUD_RATE" -xcase -icanon min 0 time 5
 
-# Read and display data from the serial port
-echo "Reading data from $SERIAL_PORT_GPS at $BAUD_RATE baud rate..."
-count=0
-empty_count=0
-while [ $count -lt 5 ]; do
-    read -r line < "$SERIAL_PORT_GPS"
-    if [ -z "$line" ]; then
-        ((empty_count++))
-    else
-        echo "$line"
-    fi
-    ((count++))
-done
+# # Read and display data from the serial port
+# echo "Reading data from $SERIAL_PORT_GPS at $BAUD_RATE baud rate..."
+# count=0
+# empty_count=0
+# while [ $count -lt 5 ]; do
+#     read -r line < "$SERIAL_PORT_GPS"
+#     if [ -z "$line" ]; then
+#         ((empty_count++))
+#     else
+#         echo "$line"
+#     fi
+#     ((count++))
+# done
 
-# sudo systemctl restart visiongps
-# Check if all attempts resulted in empty data
-if [ $empty_count -eq 5 ]; then
-    echo "No data received from $SERIAL_PORT_GPS. Poweroff the device..."
-    logger "Poweroff Device"
-    sudo poweroff
-else
-    logger "Data received successfully from $SERIAL_PORT_GPS."
-    sudo systemctl restart visiongps
-fi
+# # sudo systemctl restart visiongps
+# # Check if all attempts resulted in empty data
+# if [ $empty_count -eq 5 ]; then
+#     echo "No data received from $SERIAL_PORT_GPS. Poweroff the device..."
+#     logger "Poweroff Device"
+#     sudo poweroff
+# else
+#     logger "Data received successfully from $SERIAL_PORT_GPS."
+#     sudo systemctl restart visiongps
+# fi
 
