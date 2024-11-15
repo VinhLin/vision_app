@@ -6,6 +6,13 @@ Vision_Transfer	| V2.2.0 (Build: 28/12/2023)	| GSM Turning		|
 Vision_Photo	| V2.2.0 (Build: 6/5/2023)	| total photo - clip	|
 Vision_GPS	| V2.2.0 (Build: 29/10/2023)	| increase timer 3minutes when engineoff |
 
+### `vision_transfer_2.2.1`
+- Đây là bản **dev**, mục tiêu là **config wvdial cho sim viettel**.
+- Sau khi copy app mới, nếu thiết bị dùng sim viettel, thêm dòng này vào đầu file cấu hình `/etc/visionclient.toml`
+```
+apntype = "viettel"
+```
+
 ---------------------------------------------------------------------------
 ### Download vision_photo
 ```
@@ -26,12 +33,6 @@ systemctl restart visionphoto
 wget -O /usr/bin/check_pi.sh https://github.com/VinhLin/vision_app/raw/main/check_pi.sh
 chmod +x /usr/bin/check_pi.sh
 ```
-- Download script `check_pi_2step.sh`:
-```
-wget -O /usr/bin/check_pi.sh https://github.com/VinhLin/vision_app/raw/main/check_pi_2step.sh
-chmod +x /usr/bin/check_pi.sh
-cat /usr/bin/check_pi.sh
-```
 
 ### Setup crontab
 - Mở Crontab:
@@ -40,7 +41,7 @@ crontab -e
 ```
 - Thêm nội dung sau vào crontab:
 ```
-# setup run every 5m
-*/5 * * * * /usr/bin/check_pi.sh
+# setup run every 10m
+*/10 * * * * /usr/bin/check_pi.sh
 ```
 -----> **CHẠY THÀNH CÔNG TRÊN ORANGEPI ZERO**
